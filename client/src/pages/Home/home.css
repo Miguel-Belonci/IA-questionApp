@@ -1,0 +1,150 @@
+.home {
+  min-height: 100vh;
+  background: var(--page-bg);
+  color: var(--text);
+}
+
+.topbar {
+  width: min(1160px, calc(100% - 40px));
+  margin: 0 auto;
+  padding: 28px 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--text);
+  font-size: 1.2rem;
+  font-weight: 900;
+}
+
+.logo:hover {
+  text-decoration: none;
+}
+
+.logo span {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  background: var(--accent);
+  color: white;
+}
+
+.topbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.home-main {
+  width: min(1160px, calc(100% - 40px));
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: minmax(0, 1.08fr) minmax(340px, 0.72fr);
+  gap: clamp(28px, 5vw, 72px);
+  align-items: center;
+  padding: 26px 0 64px;
+}
+
+.home-hero {
+  min-height: min(680px, calc(100vh - 150px));
+  display: flex;
+  align-items: flex-end;
+  padding: clamp(28px, 5vw, 56px);
+  border-radius: 8px;
+  overflow: hidden;
+  background:
+    linear-gradient(180deg, rgba(9, 20, 35, 0.08), rgba(9, 20, 35, 0.88)),
+    url("https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=1400&q=80") center/cover;
+  color: white;
+}
+
+.home-hero h1 {
+  max-width: 760px;
+  margin: 10px 0 18px;
+  font-size: clamp(2.8rem, 7vw, 6.8rem);
+  line-height: 0.95;
+}
+
+.home-hero p {
+  max-width: 620px;
+  margin: 0;
+  color: rgba(255, 255, 255, 0.84);
+  font-size: 1.08rem;
+  line-height: 1.7;
+}
+
+.home-panel {
+  display: grid;
+  gap: 18px;
+}
+
+.action-card {
+  display: grid;
+  gap: 14px;
+  padding: 26px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--surface);
+  box-shadow: var(--shadow);
+}
+
+.card-title {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.card-title h2 {
+  margin: 0;
+  font-size: 1.25rem;
+}
+
+.separator {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 12px;
+  color: var(--muted);
+  font-weight: 800;
+}
+
+.separator::before,
+.separator::after {
+  content: "";
+  height: 1px;
+  background: var(--border);
+}
+
+@media (max-width: 900px) {
+  .home-main {
+    grid-template-columns: 1fr;
+  }
+
+  .home-hero {
+    min-height: 420px;
+  }
+}
+
+@media (max-width: 560px) {
+  .topbar {
+    width: min(100% - 24px, 1160px);
+  }
+
+  .home-main {
+    width: min(100% - 24px, 1160px);
+  }
+
+  .ghost-button {
+    width: 44px;
+    padding: 0;
+    font-size: 0;
+  }
+}
