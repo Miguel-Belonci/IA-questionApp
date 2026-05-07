@@ -1,6 +1,10 @@
 node_modules
+.env
+.env.*
+!.env.example
 database.sqlite
 *.sqlite
-*.sqlite-journal
+*.sqlite-*
+*.db
 npm-debug.log*
 coverage
