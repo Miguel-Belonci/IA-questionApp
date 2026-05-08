@@ -26,11 +26,11 @@ router.post('/', async (req, res, next) => {
     const { name, password } = req.body;
 
     if (!name) {
-      return res.status(400).json({ message: 'Nome da sala e obrigatorio.' });
+      return res.status(400).json({ message: 'Nome da sala é obrigatório.' });
     }
 
     if (!isValidRoomPassword(password)) {
-      return res.status(400).json({ message: 'A senha da sala precisa ter pelo menos 5 digitos.' });
+      return res.status(400).json({ message: 'A senha da sala precisa ter pelo menos 5 dígitos.' });
     }
 
     let code = generateRoomCode();
@@ -61,7 +61,7 @@ router.get('/:code', async (req, res, next) => {
     });
 
     if (!room) {
-      return res.status(404).json({ message: 'Sala nao encontrada.' });
+      return res.status(404).json({ message: 'Sala não encontrada.' });
     }
 
     res.json({ room });
@@ -81,12 +81,12 @@ router.delete('/:code', async (req, res, next) => {
     });
 
     if (!room) {
-      return res.status(404).json({ message: 'Sala nao encontrada.' });
+      return res.status(404).json({ message: 'Sala não encontrada.' });
     }
 
     const passwordMatches = await verifyRoomPassword(room, roomPassword);
     if (!passwordMatches) {
-      return res.status(403).json({ message: 'Senha da sala invalida.' });
+      return res.status(403).json({ message: 'Senha da sala inválida.' });
     }
 
     await Question.destroy({ where: { roomId: room.id } });

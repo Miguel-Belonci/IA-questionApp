@@ -23,11 +23,11 @@ router.patch('/users/:id/status', async (req, res, next) => {
   try {
     const user = await User.findByPk(req.params.id);
     if (!user) {
-      return res.status(404).json({ message: 'Usuario nao encontrado.' });
+      return res.status(404).json({ message: 'Usuário não encontrado.' });
     }
 
     if (user.role === 'admin' && req.body.active === false) {
-      return res.status(400).json({ message: 'Administradores nao podem ser inativados.' });
+      return res.status(400).json({ message: 'Administradores não podem ser inativados.' });
     }
 
     user.active = user.role === 'admin' ? true : Boolean(req.body.active);

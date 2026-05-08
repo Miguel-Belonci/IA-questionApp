@@ -54,7 +54,7 @@ router.post("/login", async (req, res, next) => {
     if (!email || !password) {
       return res
         .status(400)
-        .json({ message: "Email e senha sao obrigatorios." });
+        .json({ message: "Email e senha são obrigatórios." });
     }
 
     const user = await User.findOne({ where: { email } });
@@ -63,11 +63,11 @@ router.post("/login", async (req, res, next) => {
       : false;
 
     if (!user || !passwordMatches) {
-      return res.status(401).json({ message: "Credenciais invalidas." });
+      return res.status(401).json({ message: "Credenciais inválidas." });
     }
 
     if (!user.active) {
-      return res.status(403).json({ message: "Sua conta esta inativa." });
+      return res.status(403).json({ message: "Sua conta está inativa." });
     }
 
     res.json({
@@ -90,7 +90,7 @@ router.patch("/password", requireAuth, async (req, res, next) => {
     if (!currentPassword || !newPassword) {
       return res
         .status(400)
-        .json({ message: "Senha atual e nova senha sao obrigatorias." });
+        .json({ message: "Senha atual e nova senha são obrigatórias." });
     }
 
     if (newPassword.length < 6) {
@@ -104,7 +104,7 @@ router.patch("/password", requireAuth, async (req, res, next) => {
       req.user.passwordHash,
     );
     if (!passwordMatches) {
-      return res.status(403).json({ message: "Senha atual invalida." });
+      return res.status(403).json({ message: "Senha atual inválida." });
     }
 
     req.user.passwordHash = await bcrypt.hash(newPassword, 10);

@@ -152,7 +152,7 @@ function Room() {
         </Link>
 
         <div className="room-actions">
-          <button className="code-button" type="button" onClick={copyCode} title="Copiar codigo da sala">
+          <button className="code-button" type="button" onClick={copyCode} title="Copiar código da sala">
             {code}
             <Copy size={18} />
           </button>
@@ -165,9 +165,9 @@ function Room() {
 
       <main className="room-layout">
         <aside className="room-cover">
-          <span className="eyebrow">{copied ? 'Codigo copiado' : 'Sala ativa'}</span>
+          <span className="eyebrow">{copied ? 'Código copiado' : 'Sala ativa'}</span>
           <h1>{room?.name || 'Sala'}</h1>
-          <p>Compartilhe o codigo e acompanhe as perguntas. As acoes de leitura e exclusao ficam na lista ao lado.</p>
+          <p>Compartilhe o código e acompanhe as perguntas. As ações de leitura e exclusão ficam na lista ao lado.</p>
 
           <div className="stats-grid">
             <div><strong>{stats.total}</strong><span>Total</span></div>
@@ -194,10 +194,10 @@ function Room() {
           {error && <div className="form-error">{error}</div>}
 
           <form className="question-form" onSubmit={createQuestion}>
-            <h2>Faca sua pergunta</h2>
-            <textarea value={text} onChange={(event) => setText(event.target.value)} placeholder="O que voce quer perguntar?" />
+            <h2>Faça sua pergunta</h2>
+            <textarea value={text} onChange={(event) => setText(event.target.value)} placeholder="O que você quer perguntar?" />
             <footer>
-              <span>Pergunta anonima para os outros participantes</span>
+              <span>Pergunta anônima para os outros participantes</span>
               <button className="primary-button" type="submit" disabled={sending}>
                 <Send size={18} />
                 {sending ? 'Enviando...' : 'Enviar'}
@@ -209,7 +209,7 @@ function Room() {
             {questions.length === 0 ? (
               <div className="empty-state">
                 <h2>Nenhuma pergunta por aqui.</h2>
-                <p>Envie a primeira pergunta ou compartilhe o codigo da sala com a galera.</p>
+                <p>Envie a primeira pergunta ou compartilhe o código da sala com a galera.</p>
               </div>
             ) : (
               questions.map((question) => (
