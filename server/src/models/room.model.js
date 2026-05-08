@@ -1,6 +1,6 @@
 export function defineRoom(sequelize, DataTypes) {
   return sequelize.define(
-    'Room',
+    "Room",
     {
       id: {
         type: DataTypes.INTEGER,
@@ -22,7 +22,7 @@ export function defineRoom(sequelize, DataTypes) {
       },
     },
     {
-      tableName: 'rooms',
+      tableName: "rooms",
     },
   );
 }

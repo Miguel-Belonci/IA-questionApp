@@ -18,7 +18,8 @@
   color: white;
   background:
     linear-gradient(90deg, rgba(9, 31, 31, 0.92), rgba(17, 94, 89, 0.68)),
-    url("https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=1400&q=80") center/cover;
+    url("https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=1400&q=80")
+      center/cover;
 }
 
 .admin-heading h1,

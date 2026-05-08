@@ -1,16 +1,16 @@
-import { Router } from 'express';
-import { requireAdmin, requireAuth } from '../middlewares/auth.js';
-import { Question, Room, User } from '../models/index.js';
+import { Router } from "express";
+import { requireAdmin, requireAuth } from "../middlewares/auth.js";
+import { Question, Room, User } from "../models/index.js";
 
 const router = Router();
 
 router.use(requireAuth, requireAdmin);
 
-router.get('/users', async (_req, res, next) => {
+router.get("/users", async (_req, res, next) => {
   try {
     const users = await User.findAll({
-      attributes: ['id', 'name', 'email', 'role', 'active', 'createdAt'],
-      order: [['createdAt', 'DESC']],
+      attributes: ["id", "name", "email", "role", "active", "createdAt"],
+      order: [["createdAt", "DESC"]],
     });
 
     res.json({ users });
@@ -19,18 +19,20 @@ router.get('/users', async (_req, res, next) => {
   }
 });
 
-router.patch('/users/:id/status', async (req, res, next) => {
+router.patch("/users/:id/status", async (req, res, next) => {
   try {
     const user = await User.findByPk(req.params.id);
     if (!user) {
-      return res.status(404).json({ message: 'Usuário não encontrado.' });
+      return res.status(404).json({ message: "Usuário não encontrado." });
     }
 
-    if (user.role === 'admin' && req.body.active === false) {
-      return res.status(400).json({ message: 'Administradores não podem ser inativados.' });
+    if (user.role === "admin" && req.body.active === false) {
+      return res
+        .status(400)
+        .json({ message: "Administradores não podem ser inativados." });
     }
 
-    user.active = user.role === 'admin' ? true : Boolean(req.body.active);
+    user.active = user.role === "admin" ? true : Boolean(req.body.active);
     await user.save();
 
     res.json({
@@ -47,25 +49,25 @@ router.patch('/users/:id/status', async (req, res, next) => {
   }
 });
 
-router.get('/rooms', async (req, res, next) => {
+router.get("/rooms", async (req, res, next) => {
   try {
     const where = req.query.userId ? { ownerId: req.query.userId } : undefined;
     const rooms = await Room.findAll({
       where,
-      attributes: ['id', 'name', 'code', 'ownerId', 'createdAt', 'updatedAt'],
+      attributes: ["id", "name", "code", "ownerId", "createdAt", "updatedAt"],
       include: [
         {
           model: User,
-          as: 'owner',
-          attributes: ['id', 'name', 'email', 'active'],
+          as: "owner",
+          attributes: ["id", "name", "email", "active"],
         },
         {
           model: Question,
-          as: 'questions',
-          attributes: ['id', 'read', 'createdAt'],
+          as: "questions",
+          attributes: ["id", "read", "createdAt"],
         },
       ],
-      order: [['createdAt', 'DESC']],
+      order: [["createdAt", "DESC"]],
     });
 
     res.json({
@@ -78,8 +80,10 @@ router.get('/rooms', async (req, res, next) => {
         createdAt: room.createdAt,
         updatedAt: room.updatedAt,
         questionsCount: room.questions?.length || 0,
-        openQuestionsCount: room.questions?.filter((question) => !question.read).length || 0,
-        readQuestionsCount: room.questions?.filter((question) => question.read).length || 0,
+        openQuestionsCount:
+          room.questions?.filter((question) => !question.read).length || 0,
+        readQuestionsCount:
+          room.questions?.filter((question) => question.read).length || 0,
       })),
     });
   } catch (error) {

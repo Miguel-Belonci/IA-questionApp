@@ -1,54 +1,60 @@
-import { useEffect, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { ArrowLeft, KeyRound, Moon, Sun } from 'lucide-react';
-import UserMenu from '../../components/UserMenu.jsx';
-import { apiRequest, setToken } from '../../api.js';
-import './profile.css';
+import { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { ArrowLeft, KeyRound, Moon, Sun } from "lucide-react";
+import UserMenu from "../../components/UserMenu.jsx";
+import { apiRequest, setToken } from "../../api.js";
+import "./profile.css";
 
 function Profile() {
   const navigate = useNavigate();
   const [user, setUser] = useState(null);
-  const [theme, setTheme] = useState(() => localStorage.getItem('theme') || 'light');
-  const [form, setForm] = useState({ currentPassword: '', newPassword: '', confirmPassword: '' });
-  const [error, setError] = useState('');
-  const [success, setSuccess] = useState('');
+  const [theme, setTheme] = useState(
+    () => localStorage.getItem("theme") || "light",
+  );
+  const [form, setForm] = useState({
+    currentPassword: "",
+    newPassword: "",
+    confirmPassword: "",
+  });
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     document.documentElement.dataset.theme = theme;
-    localStorage.setItem('theme', theme);
+    localStorage.setItem("theme", theme);
   }, [theme]);
 
   useEffect(() => {
-    apiRequest('/auth/me')
+    apiRequest("/auth/me")
       .then((data) => setUser(data.user))
       .catch(() => {
-        setToken('');
-        navigate('/');
+        setToken("");
+        navigate("/");
       });
   }, [navigate]);
 
   async function changePassword(event) {
     event.preventDefault();
-    setError('');
-    setSuccess('');
+    setError("");
+    setSuccess("");
 
     if (form.newPassword !== form.confirmPassword) {
-      setError('A confirmacao precisa ser igual a nova senha.');
+      setError("A confirmacao precisa ser igual a nova senha.");
       return;
     }
 
     setLoading(true);
     try {
-      const data = await apiRequest('/auth/password', {
-        method: 'PATCH',
+      const data = await apiRequest("/auth/password", {
+        method: "PATCH",
         body: {
           currentPassword: form.currentPassword,
           newPassword: form.newPassword,
         },
       });
       setSuccess(data.message);
-      setForm({ currentPassword: '', newPassword: '', confirmPassword: '' });
+      setForm({ currentPassword: "", newPassword: "", confirmPassword: "" });
     } catch (err) {
       setError(err.message);
     } finally {
@@ -65,8 +71,13 @@ function Profile() {
         </Link>
 
         <nav className="topbar-actions">
-          <button className="icon-button" type="button" onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')} title="Alternar tema">
-            {theme === 'dark' ? <Sun size={19} /> : <Moon size={19} />}
+          <button
+            className="icon-button"
+            type="button"
+            onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+            title="Alternar tema"
+          >
+            {theme === "dark" ? <Sun size={19} /> : <Moon size={19} />}
           </button>
           <UserMenu />
         </nav>
@@ -74,9 +85,11 @@ function Profile() {
 
       <main className="profile-main">
         <section className="profile-hero">
-          <Link className="back-link" to="/home"><ArrowLeft size={18} /> Voltar</Link>
+          <Link className="back-link" to="/home">
+            <ArrowLeft size={18} /> Voltar
+          </Link>
           <span className="eyebrow">Perfil</span>
-          <h1>{user?.name || 'Usuario'}</h1>
+          <h1>{user?.name || "Usuario"}</h1>
           <p>{user?.email}</p>
         </section>
 
@@ -90,16 +103,42 @@ function Profile() {
           {success && <div className="form-success">{success}</div>}
 
           <label htmlFor="current-password">Senha atual</label>
-          <input id="current-password" type="password" value={form.currentPassword} onChange={(event) => setForm({ ...form, currentPassword: event.target.value })} required />
+          <input
+            id="current-password"
+            type="password"
+            value={form.currentPassword}
+            onChange={(event) =>
+              setForm({ ...form, currentPassword: event.target.value })
+            }
+            required
+          />
 
           <label htmlFor="new-password">Nova senha</label>
-          <input id="new-password" type="password" minLength={6} value={form.newPassword} onChange={(event) => setForm({ ...form, newPassword: event.target.value })} required />
+          <input
+            id="new-password"
+            type="password"
+            minLength={6}
+            value={form.newPassword}
+            onChange={(event) =>
+              setForm({ ...form, newPassword: event.target.value })
+            }
+            required
+          />
 
           <label htmlFor="confirm-password">Confirmar nova senha</label>
-          <input id="confirm-password" type="password" minLength={6} value={form.confirmPassword} onChange={(event) => setForm({ ...form, confirmPassword: event.target.value })} required />
+          <input
+            id="confirm-password"
+            type="password"
+            minLength={6}
+            value={form.confirmPassword}
+            onChange={(event) =>
+              setForm({ ...form, confirmPassword: event.target.value })
+            }
+            required
+          />
 
           <button className="primary-button" type="submit" disabled={loading}>
-            {loading ? 'Atualizando...' : 'Atualizar senha'}
+            {loading ? "Atualizando..." : "Atualizar senha"}
           </button>
         </form>
       </main>

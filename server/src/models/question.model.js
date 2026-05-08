@@ -1,6 +1,6 @@
 export function defineQuestion(sequelize, DataTypes) {
   return sequelize.define(
-    'Question',
+    "Question",
     {
       id: {
         type: DataTypes.INTEGER,
@@ -18,7 +18,7 @@ export function defineQuestion(sequelize, DataTypes) {
       },
     },
     {
-      tableName: 'questions',
+      tableName: "questions",
     },
   );
 }

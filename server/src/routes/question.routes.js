@@ -1,23 +1,27 @@
-import bcrypt from 'bcryptjs';
-import { Router } from 'express';
-import { requireAuth } from '../middlewares/auth.js';
-import { Question, Room } from '../models/index.js';
+import bcrypt from "bcryptjs";
+import { Router } from "express";
+import { requireAuth } from "../middlewares/auth.js";
+import { Question, Room } from "../models/index.js";
 
 const router = Router();
 
 router.use(requireAuth);
 
-router.post('/', async (req, res, next) => {
+router.post("/", async (req, res, next) => {
   try {
     const { roomCode, text } = req.body;
 
     if (!roomCode || !text) {
-      return res.status(400).json({ message: 'Código da sala e pergunta são obrigatórios.' });
+      return res
+        .status(400)
+        .json({ message: "Código da sala e pergunta são obrigatórios." });
     }
 
-    const room = await Room.findOne({ where: { code: roomCode.toUpperCase() } });
+    const room = await Room.findOne({
+      where: { code: roomCode.toUpperCase() },
+    });
     if (!room) {
-      return res.status(404).json({ message: 'Sala não encontrada.' });
+      return res.status(404).json({ message: "Sala não encontrada." });
     }
 
     const question = await Question.create({
@@ -32,17 +36,20 @@ router.post('/', async (req, res, next) => {
   }
 });
 
-router.patch('/:id/read', async (req, res, next) => {
+router.patch("/:id/read", async (req, res, next) => {
   try {
     const { roomPassword } = req.body;
     const question = await findOwnedQuestion(req.params.id, req.user.id);
     if (!question) {
-      return res.status(404).json({ message: 'Pergunta não encontrada.' });
+      return res.status(404).json({ message: "Pergunta não encontrada." });
     }
 
-    const passwordMatches = await verifyRoomPassword(question.room, roomPassword);
+    const passwordMatches = await verifyRoomPassword(
+      question.room,
+      roomPassword,
+    );
     if (!passwordMatches) {
-      return res.status(403).json({ message: 'Senha da sala inválida.' });
+      return res.status(403).json({ message: "Senha da sala inválida." });
     }
 
     question.read = true;
@@ -54,17 +61,20 @@ router.patch('/:id/read', async (req, res, next) => {
   }
 });
 
-router.delete('/:id', async (req, res, next) => {
+router.delete("/:id", async (req, res, next) => {
   try {
     const { roomPassword } = req.body;
     const question = await findOwnedQuestion(req.params.id, req.user.id);
     if (!question) {
-      return res.status(404).json({ message: 'Pergunta não encontrada.' });
+      return res.status(404).json({ message: "Pergunta não encontrada." });
     }
 
-    const passwordMatches = await verifyRoomPassword(question.room, roomPassword);
+    const passwordMatches = await verifyRoomPassword(
+      question.room,
+      roomPassword,
+    );
     if (!passwordMatches) {
-      return res.status(403).json({ message: 'Senha da sala inválida.' });
+      return res.status(403).json({ message: "Senha da sala inválida." });
     }
 
     await question.destroy();
@@ -80,7 +90,7 @@ async function findOwnedQuestion(id, ownerId) {
     include: [
       {
         model: Room,
-        as: 'room',
+        as: "room",
         where: { ownerId },
       },
     ],

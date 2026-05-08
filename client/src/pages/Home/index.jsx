@@ -65,7 +65,7 @@ function Home() {
     const code = roomCode.trim().toUpperCase();
 
     if (!code) {
-      setError("Informe o codigo da sala.");
+      setError("Informe o código da sala.");
       return;
     }
 
@@ -99,8 +99,8 @@ function Home() {
             <span className="eyebrow">Ola, {user?.name || "usuario"}</span>
             <h1>Salas para perguntas ao vivo.</h1>
             <p>
-              Crie uma sala, compartilhe o codigo e gerencie as perguntas com
-              leitura, exclusao e envio em tempo real pela interface.
+              Crie uma sala, compartilhe o código e gerencie as perguntas com
+              leitura, exclusão e envio em tempo real pela interface.
             </p>
           </div>
         </section>
@@ -145,7 +145,7 @@ function Home() {
               <Search size={22} />
               <h2>Entrar em sala</h2>
             </div>
-            <label htmlFor="room-code">Codigo da sala</label>
+            <label htmlFor="room-code">Código da sala</label>
             <input
               id="room-code"
               value={roomCode}

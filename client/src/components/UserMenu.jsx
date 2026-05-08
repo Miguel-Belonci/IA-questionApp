@@ -1,7 +1,7 @@
-import { useEffect, useRef, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { DoorOpen, LogOut, Menu, User, Users } from 'lucide-react';
-import { apiRequest, setToken } from '../api.js';
+import { useEffect, useRef, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { DoorOpen, LogOut, Menu, User, Users } from "lucide-react";
+import { apiRequest, setToken } from "../api.js";
 
 function UserMenu() {
   const navigate = useNavigate();
@@ -16,24 +16,29 @@ function UserMenu() {
       }
     }
 
-    document.addEventListener('mousedown', closeOnOutsideClick);
-    return () => document.removeEventListener('mousedown', closeOnOutsideClick);
+    document.addEventListener("mousedown", closeOnOutsideClick);
+    return () => document.removeEventListener("mousedown", closeOnOutsideClick);
   }, []);
 
   useEffect(() => {
-    apiRequest('/auth/me')
+    apiRequest("/auth/me")
       .then((data) => setUser(data.user))
       .catch(() => setUser(null));
   }, []);
 
   function logout() {
-    setToken('');
-    navigate('/');
+    setToken("");
+    navigate("/");
   }
 
   return (
     <div className="user-menu" ref={menuRef}>
-      <button className="icon-button" type="button" onClick={() => setOpen((current) => !current)} title="Abrir menu">
+      <button
+        className="icon-button"
+        type="button"
+        onClick={() => setOpen((current) => !current)}
+        title="Abrir menu"
+      >
         <Menu size={20} />
       </button>
 
@@ -43,7 +48,7 @@ function UserMenu() {
             <User size={17} />
             Perfil
           </Link>
-          {user?.role === 'admin' && (
+          {user?.role === "admin" && (
             <>
               <Link to="/admin/users" onClick={() => setOpen(false)}>
                 <Users size={17} />

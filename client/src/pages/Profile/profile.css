@@ -29,7 +29,8 @@
   gap: 12px;
   background:
     linear-gradient(180deg, rgba(10, 22, 21, 0.08), rgba(10, 22, 21, 0.88)),
-    url("https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=1100&q=80") center/cover;
+    url("https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=1100&q=80")
+      center/cover;
   color: white;
 }
 

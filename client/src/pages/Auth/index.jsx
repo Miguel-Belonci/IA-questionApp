@@ -99,7 +99,7 @@ function AuthPage({ mode }) {
           </button>
 
           <p className="auth-switch">
-            {isRegister ? "Ja tem conta?" : "Ainda nao tem conta?"}{" "}
+            {isRegister ? "Já tem conta?" : "Ainda não tem conta?"}{" "}
             <Link to={isRegister ? "/" : "/register"}>
               {isRegister ? "Entrar" : "Criar conta"}
             </Link>

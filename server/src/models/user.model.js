@@ -1,6 +1,6 @@
 export function defineUser(sequelize, DataTypes) {
   return sequelize.define(
-    'User',
+    "User",
     {
       id: {
         type: DataTypes.INTEGER,
@@ -22,9 +22,9 @@ export function defineUser(sequelize, DataTypes) {
         allowNull: false,
       },
       role: {
-        type: DataTypes.ENUM('user', 'admin'),
+        type: DataTypes.ENUM("user", "admin"),
         allowNull: false,
-        defaultValue: 'user',
+        defaultValue: "user",
       },
       active: {
         type: DataTypes.BOOLEAN,
@@ -33,7 +33,7 @@ export function defineUser(sequelize, DataTypes) {
       },
     },
     {
-      tableName: 'users',
+      tableName: "users",
     },
   );
 }
