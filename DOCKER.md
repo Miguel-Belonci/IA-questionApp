@@ -1,6 +1,6 @@
 # Docker e Cypress
 
-## Subir a aplicacao
+## Subir a aplicação
 
 ```bash
 docker compose up --build
@@ -13,7 +13,7 @@ docker compose build --no-cache client
 docker compose up
 ```
 
-O Dockerfile do client define `CYPRESS_INSTALL_BINARY=0` porque o container de producao nao precisa baixar o binario do Cypress.
+O Dockerfile do client define `CYPRESS_INSTALL_BINARY=0` porque o container de produção não precisa baixar o binário do Cypress.
 
 URLs:
 
@@ -21,9 +21,9 @@ URLs:
 - API health: http://localhost:3001/api/health
 - Postgres: localhost:5432
 
-## Se o Docker nao conecta
+## Se o Docker não conecta
 
-Erros como `failed to connect to the docker API`, `dockerDesktopLinuxEngine` ou `permission denied ... docker_engine` indicam problema no Docker Desktop/daemon, nao no projeto.
+Erros como `failed to connect to the docker API`, `dockerDesktopLinuxEngine` ou `permission denied ... docker_engine` indicam problema no Docker Desktop/daemon, não no projeto.
 
 No Windows:
 
@@ -48,9 +48,9 @@ docker compose logs -f server
 docker compose exec server node -e "fetch('http://127.0.0.1:3001/api/health').then(r=>r.text()).then(console.log)"
 ```
 
-Se `server` estiver healthy mas `http://localhost:3001/api/health` nao responder no navegador, quase sempre e conflito de porta local ou Docker Desktop sem expor porta corretamente.
+Se `server` estiver healthy mas `http://localhost:3001/api/health` não responder no navegador, quase sempre e conflito de porta local ou Docker Desktop sem expor porta corretamente.
 
-Se voce mudou modelos e ja tinha volume antigo:
+Se voce mudou modelos e já tinha volume antigo:
 
 ```bash
 docker compose down -v
@@ -84,4 +84,4 @@ npx cypress install
 npx cypress open --browser chrome
 ```
 
-Tambem confira se antivirus/Windows Defender nao bloqueou a pasta do Cypress em `%LOCALAPPDATA%\Cypress\Cache`.
+Tambem confira se antivirus/Windows Defender não bloqueou a pasta do Cypress em `%LOCALAPPDATA%\Cypress\Cache`.
